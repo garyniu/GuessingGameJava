@@ -1,12 +1,9 @@
-------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all they need to know. The comments should usually include at least:
-------------------------------------------------------------------------
+PROJECT TITLE: Java Number Guessing Game
+PURPOSE OF PROJECT: To get a good grade in my comp sci class
+VERSION or DATE: 11/22/20201
+HOW TO START THIS PROJECT: click on the java thing
+AUTHORS: Gary Niu
+USER INSTRUCTIONS: Don't download this
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS:
+
+727
