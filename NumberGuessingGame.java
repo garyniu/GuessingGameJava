@@ -27,7 +27,7 @@ public class NumberGuessingGame
     }
     
     private static int mainGame (int x) {
-        int guess;
+        int guess, timesGuessed = 0;
         
         System.out.println("Start guessing!");
         
@@ -35,7 +35,11 @@ public class NumberGuessingGame
             guess = scan.nextInt();
             
             if (guess == x){
-                System.out.println("Correct!\n");
+                if (timesGuessed <= 1){
+                    System.out.println("Correct!\nThe number was "+ x + ".\nIt took you 1 try to guess the number.\n");
+                } else {
+                    System.out.println("Correct!\nThe number was "+ x + ".\nIt took you " + timesGuessed + " tries to guess the number.\n");
+                }
                 scan.nextLine();
                 return 0;
             } else if (guess < x){
@@ -43,7 +47,7 @@ public class NumberGuessingGame
             } else if (guess > x){
                 System.out.println("Too high!");
             }
-            
+            timesGuessed++;
         }
         
     }   
