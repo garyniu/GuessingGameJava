@@ -2,6 +2,8 @@
 comment0.target=NumberGuessingGame
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
-comment2.params=intRand
-comment2.target=int\ numGen(int)
-numComments=3
+comment2.params=x
+comment2.target=int\ mainGame(int)
+comment3.params=intRand
+comment3.target=int\ numGen(int)
+numComments=4

@@ -9,12 +9,15 @@ public class NumberGuessingGame
         float score;
         int guessNumber;
         
-        System.out.println("\n\nWelcome to YANGG (Yet Another Number Guessing Game)!");
+        System.out.print('\u000C');
+        System.out.println("\nWelcome to YANGG (Yet Another Number Guessing Game)!");
         System.out.println("Ready? Y/N");
         readyGame = scan.nextLine().toUpperCase(); 
         
         while (readyGame.equals("Y")){
             guessNumber = numGen(0);// runs numgen
+            
+            mainGame(guessNumber);           
             
             System.out.println("Do you want to play again? Y/N");
             readyGame = scan.nextLine().toUpperCase(); 
@@ -22,6 +25,29 @@ public class NumberGuessingGame
         }
         System.out.println("\nThanks for playing YANGG! Remember to rate 5 stars on DMOJ! \nAll hail Lord and Saviour Bruce!");
     }
+    
+    private static int mainGame (int x) {
+        int guess;
+        
+        System.out.println("Start guessing!");
+        
+        while (true) {
+            guess = scan.nextInt();
+            
+            if (guess == x){
+                System.out.println("Correct!\n");
+                scan.nextLine();
+                return 0;
+            } else if (guess < x){
+                System.out.println("Too low!");
+            } else if (guess > x){
+                System.out.println("Too high!");
+            }
+            
+        }
+        
+    }   
+    
     private static int numGen (int intRand) {
         long upperBound;
         
@@ -34,5 +60,7 @@ public class NumberGuessingGame
         return intRand;
         
     }
+    
+    
     
 }
