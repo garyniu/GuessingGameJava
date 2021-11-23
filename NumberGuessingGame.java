@@ -10,8 +10,8 @@ public class NumberGuessingGame
         int guessNumber;
         
         System.out.print('\u000C');
-        System.out.println("\nWelcome to YANGG (Yet Another Number Guessing Game)!");
-        System.out.println("Ready? Y/N");
+        println("\nWelcome to YANGG (Yet Another Number Guessing Game)!");
+        println("Ready? Y/N");
         readyGame = scan.nextLine().toUpperCase(); 
         
         while (readyGame.equals("Y")){
@@ -19,52 +19,57 @@ public class NumberGuessingGame
             
             mainGame(guessNumber);           
             
-            System.out.println("Do you want to play again? Y/N");
+            println("Do you want to play again? Y/N");
             readyGame = scan.nextLine().toUpperCase(); 
             
         }
         System.out.println("\nThanks for playing YANGG! Remember to rate 5 stars on DMOJ! \nAll hail Lord and Saviour Bruce!");
     }
     
+    //guesing main game
     private static int mainGame (int x) {
         int guess, timesGuessed = 0;
         
-        System.out.println("Start guessing!");
+        println("Start guessing!");
         
         while (true) {
             guess = scan.nextInt();
             
             if (guess == x){
                 if (timesGuessed <= 1){
-                    System.out.println("Correct!\nThe number was "+ x + ".\nIt took you 1 try to guess the number.\n");
+                    println("Correct!\nThe number was "+ x + ".\nIt took you 1 try to guess the number.\n");
                 } else {
-                    System.out.println("Correct!\nThe number was "+ x + ".\nIt took you " + timesGuessed + " tries to guess the number.\n");
+                    println("Correct!\nThe number was "+ x + ".\nIt took you " + timesGuessed + " tries to guess the number.\n");
                 }
                 scan.nextLine();
                 return 0;
             } else if (guess < x){
-                System.out.println("Too low!");
+                println("Too low!");
             } else if (guess > x){
-                System.out.println("Too high!");
+                println("Too high!");
             }
             timesGuessed++;
         }
         
     }   
     
+    //random number generator with user input
     private static int numGen (int intRand) {
         long upperBound;
         
-        System.out.println("\nHow high do you want the number to be?");
+        println("\nHow high do you want the number to be?");
         upperBound = scan.nextInt();
         scan.nextLine();
         intRand = (int)(Math.random() * upperBound + 1);
         
-        System.out.println("\nOkay, The number is between 1 and " + upperBound + ".");
+        println("\nOkay, The number is between 1 and " + upperBound + ".");
         return intRand;
         
     }
     
-    
+    //short form print line
+    private static void println(String x){
+        System.out.println(x);
+    }
     
 }

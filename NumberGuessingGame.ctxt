@@ -6,4 +6,6 @@ comment2.params=x
 comment2.target=int\ mainGame(int)
 comment3.params=intRand
 comment3.target=int\ numGen(int)
-numComments=4
+comment4.params=x
+comment4.target=void\ println(java.lang.String)
+numComments=5
