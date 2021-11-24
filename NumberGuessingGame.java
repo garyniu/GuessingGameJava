@@ -15,6 +15,10 @@ public class NumberGuessingGame
         readyGame = scan.nextLine().toUpperCase(); 
         
         while (readyGame.equals("Y")){
+            //add the harder difficutlies here and in numgen
+            
+            
+            
             guessNumber = numGen(0);// runs numgen
             
             mainGame(guessNumber);           
