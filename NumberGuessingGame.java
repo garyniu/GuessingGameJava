@@ -66,9 +66,7 @@ public class NumberGuessingGame
         while (true){
             difficult = scan.nextLine().toUpperCase();
             
-            if (difficult.length() != 1){
-                println("Please respond with (E)asy, (M)edium, or (H)ard.");
-            } else if (!difficult.equals("E") || !difficult.equals("M") || !difficult.equals("H")){
+            if (!difficult.equals("E") || !difficult.equals("M") || !difficult.equals("H")){
                 println("Please respond with (E)asy, (M)edium, or (H)ard.");
             }
             
