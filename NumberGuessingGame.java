@@ -7,7 +7,7 @@ public class NumberGuessingGame
         
         String readyGame;
         float score;
-        int guessNumber;
+        int guessNumber, difficulty;
         
         System.out.print('\u000C');
         println("\nWelcome to YANGG (Yet Another Number Guessing Game)!");
@@ -17,7 +17,8 @@ public class NumberGuessingGame
         while (readyGame.equals("Y")){
             //add the harder difficutlies here and in numgen
             
-            
+            difficulty = difficultySelection();
+            System.out.println(difficulty);
             
             guessNumber = numGen(0);// runs numgen
             
@@ -56,6 +57,33 @@ public class NumberGuessingGame
         }
         
     }   
+    
+    private static int difficultySelection (){
+        String difficult;
+        int howDifficult;
+        println("What difficulty would you like?\n(E)asy - (M)edium - (H)ard");
+        
+        while (true){
+            difficult = scan.nextLine().toUpperCase();
+            
+            if (difficult.length() != 1){
+                println("Please respond with (E)asy, (M)edium, or (H)ard.");
+            } else if (!difficult.equals("E") || !difficult.equals("M") || !difficult.equals("H")){
+                println("Please respond with (E)asy, (M)edium, or (H)ard.");
+            }
+            
+            if (difficult.equals("E")){
+                println("Easy selected.");
+                return 1;
+            } else if (difficult.equals("M")){
+                println("Medium selected.");
+                return 2;
+            } else if (difficult.equals("H")){
+                println("Hard selected.");
+                return 3;
+            }
+        }
+    }
     
     //random number generator with user input
     private static int numGen (int intRand) {
