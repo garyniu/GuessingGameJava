@@ -5,14 +5,23 @@ public class NumberGuessingGame
     private static Scanner scan = new Scanner (System.in);
     public static void main (String[] args){
         
-        String readyGame;
+        String readyGame = "";
         float score;
-        int guessNumber, difficulty;
+        int difficulty;
+        double guessNumber;
         
         System.out.print('\u000C');
         println("\nWelcome to YANGG (Yet Another Number Guessing Game)!");
         println("Ready? Y/N");
-        readyGame = scan.nextLine().toUpperCase(); 
+        
+        while (true){
+            readyGame = scan.nextLine().toUpperCase(); 
+            if ("Y".equals(readyGame) || "N".equals(readyGame)){
+                break;
+            }
+            println("\nPlease respond with a (Y)es or a (N)o.");
+        }
+        
         
         while (readyGame.equals("Y")){
             //add the harder difficutlies here and in numgen
@@ -20,7 +29,7 @@ public class NumberGuessingGame
             difficulty = difficultySelection();
             System.out.println(difficulty);
             
-            guessNumber = numGen(0);// runs numgen
+            guessNumber = numGen(0, difficulty);// runs numgen
             
             mainGame(guessNumber);           
             
@@ -28,17 +37,19 @@ public class NumberGuessingGame
             readyGame = scan.nextLine().toUpperCase(); 
             
         }
+        
         System.out.println("\nThanks for playing YANGG! Remember to rate 5 stars on DMOJ! \nAll hail Lord and Saviour Bruce!");
     }
     
     //guesing main game
-    private static int mainGame (int x) {
-        int guess, timesGuessed = 0;
+    private static int mainGame (double x) {
+        int timesGuessed = 0;
+        double guess;
         
         println("Start guessing!");
         
         while (true) {
-            guess = scan.nextInt();
+            guess = scan.nextDouble();
             
             if (guess == x){
                 if (timesGuessed <= 1){
@@ -82,15 +93,32 @@ public class NumberGuessingGame
     }
     
     //random number generator with user input
-    private static int numGen (int intRand) {
-        long upperBound;
+    private static double numGen (double intRand, int difficulty) {
+        double upperBound;
+        int upperBoundAlt;
         
         println("\nHow high do you want the number to be?");
         upperBound = scan.nextInt();
         scan.nextLine();
-        intRand = (int)(Math.random() * upperBound + 1);
         
-        println("\nOkay, The number is between 1 and " + upperBound + ".");
+        upperBoundAlt = (int)upperBound;
+        
+        if (difficulty == 1){
+            intRand = (int)(Math.random() * upperBound + 1);
+        } else if (difficulty == 2){
+            intRand = (int)(Math.random() * upperBound + 1);
+            intRand += Math.random();
+            intRand = ((double)((int)(intRand * 100.0)))/100.0;
+            System.out.println(intRand);
+        } else {
+            intRand = (int)(Math.random() * upperBound + 1);
+            intRand += Math.random() / 2;
+            intRand = ((double)((int)(intRand * 10000.0)))/10000.0;
+            System.out.println(intRand);
+        }
+        
+        
+        println("\nOkay, The number is between 1 and " + upperBoundAlt + ".");
         return intRand;
         
     }
