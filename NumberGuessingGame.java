@@ -115,12 +115,20 @@ public class NumberGuessingGame
             intRand = (int)(Math.random() * upperBound + 1);
         } else if (difficulty == 2){
             intRand = (int)(Math.random() * upperBound + 1);
+            if (intRand == upperBound){
+                intRand--;
+            }
+            
             intRand += Math.random();
             intRand = ((double)((int)(intRand * 100.0)))/100.0;
-
+            
             System.out.println(intRand);
         } else {
             intRand = (int)(Math.random() * upperBound + 1);
+            if (intRand == upperBound){
+                intRand--;
+            }
+            
             intRand += Math.random() / 2;
             intRand = ((double)((int)(intRand * 10000.0)))/10000.0;
 
