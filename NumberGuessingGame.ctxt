@@ -2,8 +2,8 @@
 comment0.target=NumberGuessingGame
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
-comment2.params=x
-comment2.target=int\ mainGame(double)
+comment2.params=x\ difficulty
+comment2.target=int\ mainGame(double,\ int)
 comment3.params=
 comment3.target=int\ difficultySelection()
 comment4.params=intRand\ difficulty

@@ -27,11 +27,10 @@ public class NumberGuessingGame
             //add the harder difficutlies here and in numgen
             
             difficulty = difficultySelection();
-            System.out.println(difficulty);
             
             guessNumber = numGen(0, difficulty);// runs numgen
             
-            mainGame(guessNumber);           
+            mainGame(guessNumber, difficulty);           
             
             println("Do you want to play again? Y/N");
             readyGame = scan.nextLine().toUpperCase(); 
@@ -42,9 +41,10 @@ public class NumberGuessingGame
     }
     
     //guesing main game
-    private static int mainGame (double x) {
-        int timesGuessed = 0;
+    private static int mainGame (double x, int difficulty) {
+        int timesGuessed = 0, tempNumber;
         double guess;
+        tempNumber = (int) x;
         
         println("Start guessing!");
         
@@ -53,9 +53,17 @@ public class NumberGuessingGame
             
             if (guess == x){
                 if (timesGuessed <= 1){
-                    println("Correct!\nThe number was "+ x + ".\nIt took you 1 try to guess the number.\n");
+                    if (difficulty == 1){
+                        println("Correct!\nThe number was "+ tempNumber + ".\nIt took you 1 try to guess the number.\n");
+                    } else {
+                        println("Correct!\nThe number was "+ x + ".\nIt took you 1 try to guess the number.\n");
+                    }
                 } else {
-                    println("Correct!\nThe number was "+ x + ".\nIt took you " + timesGuessed + " tries to guess the number.\n");
+                    if (difficulty == 1){
+                        println("Correct!\nThe number was "+ tempNumber + ".\nIt took you " + timesGuessed + " tries to guess the number.\n");
+                    } else {
+                        println("Correct!\nThe number was "+ x + ".\nIt took you " + timesGuessed + " tries to guess the number.\n");
+                    }
                 }
                 scan.nextLine();
                 return 0;
@@ -78,13 +86,13 @@ public class NumberGuessingGame
             difficult = scan.nextLine().toUpperCase();
             
             if (difficult.equals("E")){
-                println("Easy selected.");
+                println("Easy selected.\nThe number is going to be a whole number.");
                 return 1;
             } else if (difficult.equals("M")){
-                println("Medium selected.");
+                println("Medium selected.\nThe number is going to have 2 decimal places.");
                 return 2;
             } else if (difficult.equals("H")){
-                println("Hard selected.");
+                println("Hard selected.\nThe number is going to have 4 decimal places.");
                 return 3;
             } else {
                 println("Please respond with (E)asy, (M)edium, or (H)ard.");
@@ -109,11 +117,13 @@ public class NumberGuessingGame
             intRand = (int)(Math.random() * upperBound + 1);
             intRand += Math.random();
             intRand = ((double)((int)(intRand * 100.0)))/100.0;
+
             System.out.println(intRand);
         } else {
             intRand = (int)(Math.random() * upperBound + 1);
             intRand += Math.random() / 2;
             intRand = ((double)((int)(intRand * 10000.0)))/10000.0;
+
             System.out.println(intRand);
         }
         
