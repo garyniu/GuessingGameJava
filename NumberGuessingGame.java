@@ -42,7 +42,9 @@ public class NumberGuessingGame
     
     //guesing main game
     private static int mainGame (double x, int difficulty) {
-        int timesGuessed = 0, tempNumber;
+        int timesGuessed = 0, tempNumber, smallHint = 0, bigHint = 0;
+        int randHint = (int)(Math.random() * 2 + 1);
+        int[] tempHintAmount = new int[2];
         double guess;
         tempNumber = (int) x;
         
@@ -72,10 +74,48 @@ public class NumberGuessingGame
             } else if (guess > x){
                 println("Too high!");
             }
+            
+            scan.nextLine();
+            
+            tempHintAmount = hint(smallHint, bigHint, randHint, x, guess);
+            smallHint = tempHintAmount[0];
+            bigHint = tempHintAmount[1];
+            System.out.println(smallHint + " | " + bigHint);
+            
             timesGuessed++;
         }
         
     }   
+    
+    private static int[] hint (int smallHint, int bigHint, int randomHint, double guessingNumber, int guess){
+        String hintSelection;
+        int numLength = guessingNumber.length();
+        
+        
+        println("Would you like a (S)mall hint or a (B)ig hint? \nType anything else to continue.");
+        hintSelection = scan.nextLine().toUpperCase();
+        
+        
+        if (hintSelection.equals("S")){
+            
+            smallHint++;
+        } else if (hintSelection.equals("B")){
+            System.out.println("The first digit of the number is " + guessingNumber.get[0] + ".");
+            System.out.println("The last digit of the number is " + guessingNumber.get[-1] + ".");
+            System.out.println("There are " + numLength + " digits in the number.");
+            System.out.println();
+            
+            System.out.println(randomHint);
+            bigHint++;
+        }
+        
+        println("Guess!");
+        
+        int[] hintAmount = new int[2];
+        hintAmount[0] = smallHint;
+        hintAmount[1] = bigHint;
+        return hintAmount;
+    }
     
     private static int difficultySelection (){
         String difficult;
