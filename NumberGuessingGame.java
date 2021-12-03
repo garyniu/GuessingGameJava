@@ -94,7 +94,7 @@ public class NumberGuessingGame
             //takes the numbers from the array returned by hint method and places in two integers for access later
             smallHint = tempHintAmount[0];
             bigHint = tempHintAmount[1];
-            System.out.println(smallHint + " | " + bigHint);//test code, remove later
+            //System.out.println(smallHint + " | " + bigHint);//test code, remove later
             
             //add 1 for each time this is looped
             timesGuessed++;
@@ -104,39 +104,80 @@ public class NumberGuessingGame
     
     //god save me
     private static int[] hint (int smallHint, int bigHint, int randomHint, double guessingNumber, double guess, int difficulty){
-        String hintSelection, guessingNumberWholeString = String.valueOf(guessingNumber), guessingNumberDecimalString = "";
-        int integerGuessingNumber, integerGuess;
+        String hintSelection, guessingNumberWholeString = String.valueOf(guessingNumber), guessingNumberDecimalString = "0", overHintLimitBig, overHintLimitSmall, guessNumberWhole = String.valueOf(guess), guessingNumberWholeStringAlt = String.valueOf(guessingNumber), rightPositionChars = "";
+        int integerGuessingNumber, integerGuess, numLength = 0, loopNum = 0, loopNumGuess = 0, zerosMissing, rightPosCount = 0, forLoopRepeatTimes;
         double guessingNumberAlt = guessingNumber, guessAlt = guess;
+        int[] hintAmount = new int[2];
+        hintAmount[0] = smallHint;
+        hintAmount[1] = bigHint;
+        
+        //compare the guess and the hidden number to see which ones are in the right place and how many are in the right place
+        //MAKE 2 NEW STRINGS WITH THE 2 CHARACTERS AT THE BACK REMOVED FOR DIFFICULTY = 1
+        while (true){
+            if (guessingNumberWholeString.charAt(loopNum) == '.'){
+                break;
+            }
+            loopNum++;
+        }
+        
+        while (true){
+            if (guessNumberWhole.charAt(loopNumGuess) == '.'){
+                break;
+            }
+            loopNumGuess++;
+        }
+        
+        zerosMissing = loopNum - loopNumGuess;
+        
+        for (int i = 0; i < zerosMissing; i++){
+            guessNumberWhole = "0" + guessNumberWhole;
+        }
+        
+        //test code
+        System.out.println(guessingNumberWholeString + " | " + guessNumberWhole + " | " + loopNum + " | " + loopNumGuess);
+        
+        if (guessingNumberWholeString.length() < guessNumberWhole.length()){
+            forLoopRepeatTimes = guessingNumberWholeString.length(); 
+        } else {
+            forLoopRepeatTimes = guessNumberWhole.length(); 
+        }
+        
+        for (int i = 0; i < forLoopRepeatTimes; i++){
+            if (guessingNumberWholeString.charAt(i) == guessNumberWhole.charAt(i) && (guessingNumberWholeString.charAt(i) != '.' || guessNumberWhole.charAt(i) != '.')){
+                rightPositionChars = rightPositionChars + guessNumberWhole.charAt(i);
+                rightPosCount++;
+            }
+        }
+        
+        
+        System.out.println(rightPositionChars + " | " + rightPosCount);
+        
+        
+        
         
         //seperate the guessing number into whole and decimal
+        
         if (difficulty == 1){
             guessingNumberWholeString = guessingNumberWholeString.substring(0, guessingNumberWholeString.length() - 2);
+            numLength = guessingNumberWholeString.length();
         } else if (difficulty == 2){
             guessingNumberDecimalString = guessingNumberWholeString.substring(Math.max(guessingNumberWholeString.length() - 2, 0));
             guessingNumberWholeString = guessingNumberWholeString.substring(0, guessingNumberWholeString.length() - 3);
+            numLength = guessingNumberWholeString.length() + 2;
             
             //test code
-            println(guessingNumberDecimalString);
-            println(guessingNumberWholeString);
+            //println(guessingNumberDecimalString);
+            //println(guessingNumberWholeString);
         } else if (difficulty == 3){
             guessingNumberDecimalString = guessingNumberWholeString.substring(Math.max(guessingNumberWholeString.length() - 4, 0));
             guessingNumberWholeString = guessingNumberWholeString.substring(0, guessingNumberWholeString.length() - 5);
+            numLength = guessingNumberWholeString.length() + 4;
             
             //test code
-            println(guessingNumberDecimalString);
-            println(guessingNumberWholeString);
+            //println(guessingNumberDecimalString);
+            //println(guessingNumberWholeString);
         }
         
-        //puts the guess and guess number into integers for comparision
-        /*
-        if (difficulty == 2){
-            integerGuessingNumber = (int) guessingNumber * 100;
-            integerGuess = (int) guess * 100;
-        } else if (difficulty == 3){
-            integerGuessingNumber = (int) guessingNumber * 10000;
-            integerGuess = (int) guess * 10000;
-        }
-        */
         
         //text for selecting hints
         println("Would you like a (S)mall hint or a (B)ig hint? \nType anything else to continue.");
@@ -144,26 +185,103 @@ public class NumberGuessingGame
         
         
         if (hintSelection.equals("S")){
+            if (smallHint > 3){
+                while (true){
+                    println("Maximum amounts of small hints given.\nAre you sure you want another small hint? Y/N \n(Asking for any more small hints will no longer affect your score.)");
+                    overHintLimitSmall = scan.nextLine().toUpperCase();
+                    if (overHintLimitSmall.equals("N")){
+                        println("Guess!");
+                        return hintAmount;
+                    } else if (overHintLimitSmall.equals("Y")){
+                        break;
+                    } else {
+                        println("Please respond with a (Y)es or a (N)o.");
+                    }
+                }
+            }
+            
+            if (smallHint == 0 || smallHint % 4 == 0){
+                if (Integer.parseInt(guessingNumberWholeString) % 2 == 0){
+                    println("The number can be evenly divided by 2.");
+                } else {
+                    println("The number cannot be evenly divided by 2.");
+                }
+                
+            } else if (smallHint % 4 == 1){
+
+                if (Integer.parseInt(guessingNumberDecimalString) < 50){
+                    println("The decimal section of the number is less than 1/2.");
+                } else {
+                    println("The decimal section of the number is larger than 1/2.");
+                }
+                
+            } else if (smallHint % 4 == 2){
+                System.out.println("Your guess had " + rightPosCount + " position/s right.");
+                
+            } else if (smallHint % 4 == 3){
+                 for (int i = 1; i < 10; i++){
+                     if (Integer.parseInt(guessingNumberWholeString) % i == 0){
+                         System.out.println("The number is divisible by " + i + ".");
+                         break;
+                     }
+                 }
+            }
             
             smallHint++;
         } else if (hintSelection.equals("B")){
-            System.out.println("The first digit of the number is " + guessingNumberWholeString.charAt(0) + ".");
-            System.out.println("The last digit of the number is " + guessingNumberWholeString.charAt(guessingNumberWholeString.length() - 1) + ".");
-            System.out.println("The last decimal of the number is " + guessingNumberDecimalString.charAt(guessingNumberWholeString.length() - 1) + ".");
+            
+            if (bigHint > 4){
+                while (true){
+                    println("Maximum amounts of big hints given.\nAre you sure you want another big hint? Y/N \n(Asking for any more big hints will no longer affect your score.)");
+                    overHintLimitBig = scan.nextLine().toUpperCase();
+                    if (overHintLimitBig.equals("N")){
+                        println("Guess!");
+                        return hintAmount;
+                    } else if (overHintLimitBig.equals("Y")){
+                        break;
+                    } else {
+                        println("Please respond with a (Y)es or a (N)o.\n");
+                    }
+                }
+            }
             
             
-            //System.out.println("There are " + numLength + " digits in the number.");
-            //System.out.println();
+            if (bigHint == 0 || bigHint % 5 == 0){
+                System.out.println("The first digit of the number is " + guessingNumberWholeString.charAt(0) + ".");
+            } else if (bigHint % 5 == 1){
+                System.out.println("The last digit of the number is " + guessingNumberWholeString.charAt(guessingNumberWholeString.length() - 1) + ".");
+            } else if (bigHint % 5 == 2){
+                System.out.println("There are " + numLength + " digits in the number.");
+            } else if (bigHint % 5 == 3){
+                if (difficulty != 1){
+                    System.out.println("The last decimal of the number is " + guessingNumberDecimalString.charAt(guessingNumberDecimalString.length() - 1) + ".");
+                } else {
+                    System.out.println("The center digit of the number is " + guessingNumberWholeString.charAt((guessingNumberDecimalString.length() - 1) / 2) + ".");
+                }
+            } else if (bigHint % 5 == 4){
+                
+                if (rightPositionChars == "" || rightPositionChars == "0"){
+                    println("None of the digits in your guess was right.");
+                } else {
+                    System.out.print("The digits you had right were");
+                    for (int i = 0; i < rightPositionChars.length() - 1; i++){
+                        System.out.print(" ");
+                        System.out.print(rightPositionChars.charAt(i));
+                        System.out.print(",");
+                    }
+                    System.out.print(" and " + rightPositionChars.charAt(rightPositionChars.length() - 1) + ".\n");
+                }
+            }
             
-            System.out.println(randomHint);
+            
+            //System.out.println(randomHint);
             bigHint++;
         }
         
         //needed prompt, as it would kick you out from method with no siginal
         println("Guess!");
         
-        //creates array and puts the 2 numbers in to return
-        int[] hintAmount = new int[2];
+        //puts the 2 numbers in array to return
         hintAmount[0] = smallHint;
         hintAmount[1] = bigHint;
         return hintAmount;
@@ -213,6 +331,8 @@ public class NumberGuessingGame
         
         if (difficulty == 1){ //generates whole number
             intRand = (int)(Math.random() * upperBound + 1);//shamelessly stolen from stack overflow 
+            
+            System.out.println(intRand);//REMOVE THIS IN FINAL
         } else if (difficulty == 2){ // generates number with 2 decimal places
             intRand = (int)(Math.random() * upperBound + 1);//shamelessly stolen from stack overflow 
             
