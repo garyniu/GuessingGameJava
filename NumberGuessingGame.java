@@ -7,7 +7,7 @@ public class NumberGuessingGame
         
         String readyGame = "";
         float score;
-        int difficulty;
+        int difficulty, storyChoice;
         double guessNumber;
         
         System.out.print('\u000C');// clears screen
@@ -31,6 +31,8 @@ public class NumberGuessingGame
             
             guessNumber = numGen(0, difficulty);// runs numgen
             
+            storyChoice = story();
+            
             mainGame(guessNumber, difficulty);           
             
             //to play again
@@ -50,6 +52,7 @@ public class NumberGuessingGame
         int[] tempHintAmount = new int[2]; //array to store the amount of hints used from hint method
         //double for the user guesses to allow for decimals
         double guess;
+        String guessNumberTemp;
         
         //RENAME X (DO IT)(NOW)
         tempNumber = (int) x; //for easy difficulty, removes the unneeded empty decimals 
@@ -58,8 +61,18 @@ public class NumberGuessingGame
         //no
         
         while (true) {
-            //double to include decimals
-            guess = scan.nextDouble();
+            
+            //prevents user from entering anything else besides number and crashing program
+            while (true){
+                guessNumberTemp = scan.nextLine();
+                try {
+                    guess = Double.parseDouble(guessNumberTemp);
+                    break;
+                } catch (NumberFormatException e) {
+                    println("Please respond with either a whole number or a decimal.");
+                    continue;
+                }
+            }
             
             if (guess == x){ // if user gets guess correct
                 if (timesGuessed <= 1){ //if user gets the guess in 1 try or less (not phyiscally possible, but just in case)
@@ -77,8 +90,6 @@ public class NumberGuessingGame
                         println("Correct!\nThe number was "+ x + ".\nIt took you " + timesGuessed + " tries to guess the number.\n");
                     }
                 }
-                //java more like bruh
-                scan.nextLine();//oracle foundation pls fix
                 return 0;
                 
             } else if (guess < x){ //if guess is lower than the generated number
@@ -86,8 +97,6 @@ public class NumberGuessingGame
             } else if (guess > x){ //if guess is higher than the generated number
                 println("Too high!");
             }
-            
-            scan.nextLine();//oracle foundation pls fix
             
             //tempHintAmount still in 
             tempHintAmount = hint(smallHint, bigHint, randHint, x, guess, difficulty);
@@ -102,17 +111,92 @@ public class NumberGuessingGame
         
     }   
     
+    private static int story () {
+        String userInputStory, contStory;
+        int storyChoice, userTypeLength;
+        String[] story1 = {"This year, Doug Ford has just been re-elected to be the Mayor of Ontario!", 
+                           "Now, in a recent news article from the CBC, it says that he is planning to \nraise taxes for the middle class yet again, and lower taxes for the high class!", 
+                           "Fortunately, you have a mind-control device at your hands, and you can use it to change his mind.", 
+                           "Unfortunately, Ford’s mind is so hardwired by the bribes from the upper class, \nthat he is unable to lower taxes, only to raise them.", 
+                           "Even more, unfortunately, his mind is encoded by a 64 bit randomly generated number game, \nfrom a Grade 11 Computer science project.", 
+                           "Guess the number right, and Doug Ford’s tax-raising spree will slow down. \nGet too many wrong, and prepare to say bye-bye to your retirement fund!"}, 
+                 story2 = {"The new superintendent of the YRDSB, Louise Sirisko, has made some sweeping changes to the education system.", 
+                           "Unfortunately, for you the player, this meant massive budget cuts, so the superintendent can keep over her tax fraud quota.", 
+                           "One aspect that majorly affected you was the salary cuts, and this year, \nshe is yet again proposing more cuts!", 
+                           "You could have made more money in 5 years working as a plumber compared to 10 years as a teacher at this point!", 
+                           "Luckily, you have your good ole’ negotiation tactics, which obviously do not include break and enter, \nand holding someone hostage at 2 AM in the morning.", 
+                           "For some odd reason, the superintendent now intends to base your salary on a 64-bit number guessing game, \nwhere every guess wrong is an amount off of your salary.", 
+                           "You agree to it, desperate to have it quickly over before the police arrive."}, 
+                 story3 = {"Nobody likes worldwide pandemics.", 
+                           "The only good part of it is the “free” money handouts.", 
+                           "Because of the new COVID variant originating from South Africa, \nthe Canadian government is now considering doing another handout.", 
+                           "For some strange reason, they want to use a Grade 11 Computer Science \nproject to calculate how much money to give out.", 
+                           "Fine by you, as you like free money."};
+                           
+        println("\nWould you like story 1 (Doug Ford and Taxes), story 2 (Superintendent of YRDSB and budget cuts),\nstory 3 (Pandemic Money handouts),or (R)andom?");
+        
+        while (true){
+            userInputStory = scan.nextLine();
+            if (userInputStory.equals("1")){
+                storyChoice = 1;
+                break;
+            } else if (userInputStory.equals("2")) {
+                storyChoice = 2;
+                break;
+            } else if (userInputStory.equals("3")) {
+                storyChoice = 3;
+                break;
+            } else if (userInputStory.equals("r") || userInputStory.equals("R")) {
+                storyChoice = 3 + (int)(Math.random() * ((3 - 1) + 1));
+                break;
+            } else {
+                println("Please respond with a 1, 2, 3, or (R)andom.");
+            }
+        }
+        System.out.println("\n");
+        
+        if (storyChoice == 1){
+            for (int i = 0; i < story1.length; i++){
+                System.out.println(story1[i]);
+                try {
+                    Thread.sleep(3000);
+                } catch(InterruptedException ex){
+                    Thread.currentThread().interrupt();
+                }
+            }
+        } else if (storyChoice == 2){
+            for (int i = 0; i < story2.length; i++){
+                System.out.println(story2[i]);
+                try {
+                    Thread.sleep(3000);
+                } catch(InterruptedException ex){
+                    Thread.currentThread().interrupt();
+                }
+            }
+        } else {
+            for (int i = 0; i < story3.length; i++){
+                System.out.println(story3[i]);
+                try {
+                    Thread.sleep(3000);
+                } catch(InterruptedException ex){
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
+        
+        return storyChoice;
+    }
+    
     //god save me
     private static int[] hint (int smallHint, int bigHint, int randomHint, double guessingNumber, double guess, int difficulty){
-        String hintSelection, guessingNumberWholeString = String.valueOf(guessingNumber), guessingNumberDecimalString = "0", overHintLimitBig, overHintLimitSmall, guessNumberWhole = String.valueOf(guess), guessingNumberWholeStringAlt = String.valueOf(guessingNumber), rightPositionChars = "";
+        String hintSelection, guessingNumberWholeString = String.valueOf(guessingNumber), guessingNumberDecimalString = "0", overHintLimitBig, overHintLimitSmall, guessNumberWhole = String.valueOf(guess), guessingNumberWholeStringAlt = String.valueOf(guessingNumber), rightPositionChars = "", guessingNumberTempAlt = "", guessNumberTempAlt = "";
         int integerGuessingNumber, integerGuess, numLength = 0, loopNum = 0, loopNumGuess = 0, zerosMissing, rightPosCount = 0, forLoopRepeatTimes;
         double guessingNumberAlt = guessingNumber, guessAlt = guess;
         int[] hintAmount = new int[2];
-        hintAmount[0] = smallHint;
+        hintAmount[0] = smallHint; 
         hintAmount[1] = bigHint;
         
         //compare the guess and the hidden number to see which ones are in the right place and how many are in the right place
-        //MAKE 2 NEW STRINGS WITH THE 2 CHARACTERS AT THE BACK REMOVED FOR DIFFICULTY = 1
         while (true){
             if (guessingNumberWholeString.charAt(loopNum) == '.'){
                 break;
@@ -142,13 +226,32 @@ public class NumberGuessingGame
             forLoopRepeatTimes = guessNumberWhole.length(); 
         }
         
-        for (int i = 0; i < forLoopRepeatTimes; i++){
-            if (guessingNumberWholeString.charAt(i) == guessNumberWhole.charAt(i) && (guessingNumberWholeString.charAt(i) != '.' || guessNumberWhole.charAt(i) != '.')){
-                rightPositionChars = rightPositionChars + guessNumberWhole.charAt(i);
-                rightPosCount++;
+        
+        if (difficulty == 1){
+            guessingNumberTempAlt = guessingNumberWholeString.substring(0, guessingNumberWholeString.length() - 1);
+            guessNumberTempAlt = guessNumberWhole.substring(0, guessNumberWhole.length() - 1);
+            
+            if (guessingNumberTempAlt.length() < guessNumberTempAlt.length()){
+                forLoopRepeatTimes = guessingNumberTempAlt.length(); 
+            } else {
+                forLoopRepeatTimes = guessNumberTempAlt.length(); 
             }
         }
         
+        
+        for (int i = 0; i < forLoopRepeatTimes; i++){
+            if (difficulty == 1){
+                if (guessingNumberTempAlt.charAt(i) == guessNumberTempAlt.charAt(i) && (guessingNumberTempAlt.charAt(i) != '.' || guessNumberTempAlt.charAt(i) != '.')){
+                    rightPositionChars = rightPositionChars + guessNumberTempAlt.charAt(i);
+                    rightPosCount++;
+                }
+            } else {
+                if (guessingNumberWholeString.charAt(i) == guessNumberWhole.charAt(i) && (guessingNumberWholeString.charAt(i) != '.' || guessNumberWhole.charAt(i) != '.')){
+                    rightPositionChars = rightPositionChars + guessNumberWhole.charAt(i);
+                    rightPosCount++;
+                }
+            }
+        }
         
         System.out.println(rightPositionChars + " | " + rightPosCount);
         
@@ -190,7 +293,7 @@ public class NumberGuessingGame
                     println("Maximum amounts of small hints given.\nAre you sure you want another small hint? Y/N \n(Asking for any more small hints will no longer affect your score.)");
                     overHintLimitSmall = scan.nextLine().toUpperCase();
                     if (overHintLimitSmall.equals("N")){
-                        println("Guess!");
+                        println("Guess!\n");
                         return hintAmount;
                     } else if (overHintLimitSmall.equals("Y")){
                         break;
@@ -235,7 +338,7 @@ public class NumberGuessingGame
                     println("Maximum amounts of big hints given.\nAre you sure you want another big hint? Y/N \n(Asking for any more big hints will no longer affect your score.)");
                     overHintLimitBig = scan.nextLine().toUpperCase();
                     if (overHintLimitBig.equals("N")){
-                        println("Guess!");
+                        println("Guess!\n");
                         return hintAmount;
                     } else if (overHintLimitBig.equals("Y")){
                         break;
@@ -279,7 +382,7 @@ public class NumberGuessingGame
         }
         
         //needed prompt, as it would kick you out from method with no siginal
-        println("Guess!");
+        println("Guess!\n");
         
         //puts the 2 numbers in array to return
         hintAmount[0] = smallHint;
@@ -318,13 +421,22 @@ public class NumberGuessingGame
     private static double numGen (double intRand, int difficulty) {
         double upperBound;//double cause code breaks for some reason oracle foundation pls fix
         int upperBoundAlt;
-        
+        String upperBountTemp;
         //base line is 0, and user inputed number is the maximum of what the number can be
         //no negative numbers, maybe later (probably not cause im lazy)
         
+        //string supremacy (Although c++ got the rights to have lowercase s in their string)
         println("\nHow high do you want the number to be?");
-        upperBound = scan.nextInt();
-        scan.nextLine(); //oracle foundation pls fix
+        while (true){
+            upperBountTemp = scan.nextLine();
+            try {
+                upperBound = Double.parseDouble(upperBountTemp);
+                break;
+            } catch (NumberFormatException e) {
+                println("Please respond with either a whole number or a decimal.");
+                continue;
+            }
+        }
         
         //storage for the final statement, unaltered number
         upperBoundAlt = (int)upperBound;
