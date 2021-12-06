@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=NGyetAnotherGuessingGame
+comment0.text=\r\n\ Yet\ Another\ Number\ Guessing\ Game\ (YANGG)\ By\ Gary\ Niu\r\n\ \r\n\ Features\:\ \r\n\ -\ 2\ seperate\ point\ systems,\ with\ 4\ point\ equations\ in\ total\r\n\ -\ Dynamic\ Hint\ selection\ that\ affects\ the\ final\ score\r\n\ -\ Crash-Proof\!\ (Through\ Try...\ Catch\ loops)\r\n\ -\ 3\ Diffirent\ Stories,\ with\ each\ having\ their\ own\ scoring\ equations\r\n\ -\ Selectable\ Difficulties,\ Easy\ being\ whole\ numbers,\ Medium\ adding\ 2\ decimals,\ Hard\ adding\ 4\ decimals\r\n\ \r\n\ Instruction\ /\ Notes\:\r\n\ -\ Story\ 1\ is\ the\ funniest\ (subjectively)\r\n\ -\ Medium\ and\ Hard\ is\ pretty\ frusturating\ and\ boring,\ just\ stick\ to\ Easy\r\n\ -\ If\ you\ really\ want\ to\ skip\ everything\ and\ test\ the\ equations\ /\ other\ things,\ \r\n\ \ \ just\ have\ Difficulty\ \=\ 1\ and\ enter\ the\ highest\ number\ as\ 1\r\n\ -\ If\ you\ want\ to\ see\ development\ history\ and\ some\ other\ random\ notes\ for\ this\ project,\ \r\n\ \ \ here\ is\ the\ GitHub\ I\ set\ up\ for\ it\:\ https\://github.com/garyniu/GuessingGameJava\r\n\ \r\n\ Credit\ for\ borrowed\ code\ /\ assets\:\r\n\ -\ readyGame\ loop\ and\ input\ (modified)\ from\ Mr.Cohen\r\n\ -\ Generate\ 2\ /\ 4\ decimal\ number\ (Accepted\ answer)\ from\ Stefan\ Haustein\ \r\n\ \ \ https\://stackoverflow.com/questions/39470238/fastest-way-to-generate-a-random-double-number-in-java\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=generatedNumber\ difficulty\ storyChoice
+comment2.target=int\ mainGame(double,\ int,\ int)
+comment3.params=
+comment3.target=int\ story()
+comment4.params=smallHint\ bigHint\ guessingNumber\ guess\ difficulty
+comment4.target=int[]\ hint(int,\ int,\ double,\ double,\ int)
+comment5.params=
+comment5.target=int\ difficultySelection()
+comment6.params=intRand\ difficulty
+comment6.target=double\ numGen(double,\ int)
+comment7.params=x
+comment7.target=void\ println(java.lang.String)
+numComments=8
