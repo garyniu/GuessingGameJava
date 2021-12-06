@@ -67,7 +67,7 @@ public class NGyetAnotherGuessingGame
         }
         
         //final exit text
-        System.out.println("\nThanks for playing YANGG! Remember to rate 5 stars on DMOJ! \nAll hail Lord and Saviour Bruce!");
+        println("\nThanks for playing YANGG! Remember to rate 5 stars on DMOJ! \nAll hail Lord and Saviour Bruce!");
     }
     
     //guesing main game
@@ -364,7 +364,7 @@ public class NGyetAnotherGuessingGame
         if (hintSelection.equals("S")){
             //warns user of repeating hints
             if (smallHint > 3){ 
-                println("Maximum amounts of small hints given.\nAre you sure you want another small hint? Y/N \n(Asking for any more small hints will no longer affect your score.)");
+                println("\nMaximum amounts of small hints given.\nAre you sure you want another small hint? Y/N \n(Asking for any more small hints will no longer affect your score.)");
                 while (true){
                     overHintLimitSmall = scan.nextLine().toUpperCase();
                     if (overHintLimitSmall.equals("N")){
@@ -377,6 +377,7 @@ public class NGyetAnotherGuessingGame
                     }
                 }
             }
+            println("\n");
             
             //gives the hints
             if (smallHint == 0 || smallHint % 4 == 0){
@@ -411,7 +412,7 @@ public class NGyetAnotherGuessingGame
         } else if (hintSelection.equals("B")){
             //warns user of repeating big hints
             if (bigHint > 4){
-                println("Maximum amounts of big hints given.\nAre you sure you want another big hint? Y/N \n(Asking for any more big hints will no longer affect your score.)");
+                println("\nMaximum amounts of big hints given.\nAre you sure you want another big hint? Y/N \n(Asking for any more big hints will no longer affect your score.)");
                 while (true){
                     overHintLimitBig = scan.nextLine().toUpperCase();
                     if (overHintLimitBig.equals("N")){
@@ -424,6 +425,8 @@ public class NGyetAnotherGuessingGame
                     }
                 }
             }
+            
+            println("\n");
             
             //prints out big hints
             if (bigHint == 0 || bigHint % 5 == 0){
@@ -523,11 +526,9 @@ public class NGyetAnotherGuessingGame
         upperBoundAlt = (int)upperBound;
         
         if (difficulty == 1){ //generates whole number
-            intRand = (int)(Math.random() * upperBound + 1);//shamelessly stolen from stack overflow 
-            
-            System.out.println(intRand);//REMOVE THIS IN FINAL
+            intRand = (int)(Math.random() * upperBound + 1);
         } else if (difficulty == 2){ // generates number with 2 decimal places
-            intRand = (int)(Math.random() * upperBound + 1);//shamelessly stolen from stack overflow 
+            intRand = (int)(Math.random() * upperBound + 1);
             
             //to prevent the number from being over the user selected number
             if (intRand == upperBound){
@@ -537,8 +538,6 @@ public class NGyetAnotherGuessingGame
             //generates decimal, adds to the number, then typeCasted into a maximum of 2 decimals
             intRand += Math.random();
             intRand = ((double)((int)(intRand * 100.0)))/100.0; //i made this, not stolen from stack overflow
-            
-            System.out.println(intRand);//REMOVE THIS IN FINAL
         } else { // generates number with 4 decimal places, optimally should be a else if statement but it doesn't really matter
             intRand = (int)(Math.random() * upperBound + 1);//shamelessly stolen from stack overflow 
             
@@ -550,8 +549,6 @@ public class NGyetAnotherGuessingGame
             //generates decimal, adds to the number, then typeCasted into a maximum of 4 decimals
             intRand += Math.random() / 2;
             intRand = ((double)((int)(intRand * 10000.0)))/10000.0;//i forgot where i stole this from
-
-            System.out.println(intRand);//REMOVE THIS IN FINAL
         }
         
         //prints and returns number
